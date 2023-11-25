@@ -24,18 +24,13 @@ Both setups start at the root of the project
 #### Backend:
 
 ```sh
-python3 -m venv env
-source env/bin/activate
-pip install django
-pip install django-rest-framework
-pip install django-cors-headers
-pip install djoser
-pip install pillow
+python -m venv env
+env/Source/activate
+pip install django django-rest-framework django-cors-headers djoser pillow
 cd backend
-python3 manage.py makemigrations
-python3 manage.py migrate
-python3 manage.py runserver
-CREATE SUPERUSER
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
 ```
 
 #### Frontend:
@@ -50,9 +45,9 @@ yarn install
 #### Backend:
 
 ```sh
-source env/bin/activate
+env/Source/activate
 cd backend
-python3 manage.py runserver
+python manage.py runserver
 ```
 
 #### Frontend:
