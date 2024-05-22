@@ -1,61 +1,44 @@
 <script setup lang="ts">
-  import { ref } from 'vue'
-  import { useDisplay } from 'vuetify'
-  import { useAppStore } from '@/store/app'
-  import Login from '@/components/Navigation/Login.vue'
-  import Cart from '@/components/Navigation/Cart.vue'
+import { ref } from "vue";
+import { useDisplay } from "vuetify";
+import Login from "@/components/Navigation/Login.vue";
+import Cart from "@/components/Navigation/Cart.vue";
 
-  const appStore = useAppStore()
-  const { mobile } = useDisplay({ mobileBreakpoint: 768 })
+const { mobile } = useDisplay({ mobileBreakpoint: 768 });
 
-  const menuItems = [
-    {
-      title: 'All Books',
-      slug: '/books'
-    }
-  ]
+const menuItems = [
+  {
+    title: "Category",
+    slug: "/items",
+  },
+  {
+    title: "All Items",
+    slug: "/items",
+  },
+];
 
-  const drawerOpen = ref(false)
+const drawerOpen = ref(false);
 </script>
 
 <template>
-  <v-container class="w-100 h-48 pa-0 mb-10 elevation-10">
+  <v-container class="w-100 h-48 pa-0 elevation-10">
     <v-app-bar
       dark
       color="primary"
       density="compact"
       class="px-2 d-flex justify-space-between"
     >
-      <template
-        v-if="mobile"
-        v-slot:prepend
-      >
+      <template v-if="mobile" v-slot:prepend>
         <v-app-bar-nav-icon @click.stop="drawerOpen = !drawerOpen" />
       </template>
 
-      <v-row
-        v-if="!mobile"
-        align="center"
-        no-gutters
-      >
+      <v-row v-if="!mobile" align="center" no-gutters>
         <v-col cols="auto">
-          <v-btn
-            variant="plain"
-            to="/"
-          >
-            AMAZING LIBRARY
-          </v-btn>
+          <v-btn variant="plain" to="/">LIBRARY SYSTEM</v-btn>
         </v-col>
         <v-spacer />
-        <v-col
-          v-for="(item, i) in menuItems"
-          :key="i"
-          cols="auto"
-        >
-          <v-btn
-            variant="plain"
-            :to="item.slug"
-          >
+        <v-col v-for="(item, i) in menuItems" :key="i" cols="auto">
+          <v-btn variant="plain" :to="item.slug">
             {{ item.title }}
           </v-btn>
         </v-col>

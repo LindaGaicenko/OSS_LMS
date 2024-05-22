@@ -8,14 +8,14 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .models import Order
-from .serializers import OrderSerializer, MyOrderSerializer
+from .models import Reservation
+from .serializers import ReservationSerializer, MyReservationSerializer
 
 @api_view(['POST'])
 @authentication_classes([authentication.TokenAuthentication])
 @permission_classes([permissions.IsAuthenticated])
 def checkout(request):
-    serializer = OrderSerializer(data=request.data)
+    serializer = ReservationSerializer(data=request.data)
 
     if serializer.is_valid():
         try:
@@ -28,11 +28,11 @@ def checkout(request):
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class OrdersList(APIView):
+class ReservationList(APIView):
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
-        orders = Order.objects.filter(user=request.user)
-        serializer = MyOrderSerializer(orders, many=True)
+        reservations = Reservation.objects.filter(user=request.user)
+        serializer = MyReservationSerializer(reservations, many=True)
         return Response(serializer.data)

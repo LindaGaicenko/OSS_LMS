@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from books.models import Book
+from items.models import Item
 
-class Order(models.Model):
+class Reservation(models.Model):
     STATUS_OPTIONS = [
         ('new', 'New'),
         ('active', 'Active'),
@@ -11,7 +11,7 @@ class Order(models.Model):
         ('cancelled', 'Cancelled'),
     ]
 
-    user = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='reservations', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     status= models.CharField(max_length=20, choices=STATUS_OPTIONS, default='new')
 
@@ -22,9 +22,9 @@ class Order(models.Model):
     def __str__(self):
         return f"{self.user.email} - {self.id}"
 
-class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, related_name='items', on_delete=models.CASCADE)
+class ReservationItem(models.Model):
+    reservation = models.ForeignKey(Reservation, related_name='items', on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, related_name='items', on_delete=models.CASCADE)
 
     def __str__(self):
-        return '%s' % self.book.title
+        return '%s' % self.item.title
